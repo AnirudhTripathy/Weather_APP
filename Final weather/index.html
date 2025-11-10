@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Weather App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-animation">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="main-container">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="navbar-content">
+                <div class="logo">
+                    <i class="fas fa-cloud-sun"></i>
+                    <span>WeatherHub</span>
+                </div>
+                <div class="nav-buttons">
+                    <button id="tempToggle" class="temp-toggle-btn">
+                        <span>°C</span>
+                        <span class="toggle-dot"></span>
+                        <span>°F</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <!-- Hero Section with Search -->
+            <div class="hero-section">
+                <h1 class="main-title">Weather Forecast</h1>
+                <p class="subtitle">Get real-time weather updates for any location</p>
+                
+                <div class="search-container">
+                    <div class="search-wrapper">
+                        <i class="fas fa-search search-icon"></i>
+                        <input 
+                            type="text" 
+                            id="cityInput" 
+                            placeholder="Search for a city..." 
+                            class="search-input"
+                            autocomplete="off"
+                        >
+                        <button id="searchBtn" class="search-btn">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    <div id="errorMessage" class="error-alert"></div>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingSpinner" class="loading-container hidden">
+                <div class="spinner-box">
+                    <div class="spinner"></div>
+                    <p>Fetching weather data...</p>
+                </div>
+            </div>
+
+            <!-- Weather Display Section -->
+            <div id="weatherContainer" class="weather-container hidden">
+                <!-- Current Weather Card -->
+                <div class="current-weather-card">
+                    <div class="weather-header">
+                        <div class="location-info">
+                            <h2 id="cityName" class="city-name"></h2>
+                            <p id="currentDate" class="current-date"></p>
+                            <p id="weatherDescription" class="weather-desc"></p>
+                        </div>
+                        <img id="weatherIcon" src="" alt="Weather" class="weather-icon-large">
+                    </div>
+
+                    <div class="temperature-section">
+                        <div class="main-temp">
+                            <div class="temperature-display">
+                                <span id="temperature" class="temperature-value"></span>
+                                <span class="temp-unit" id="tempUnit">°C</span>
+                            </div>
+                        </div>
+                        <div class="temp-range">
+                            <div class="temp-item">
+                                <span class="label">High</span>
+                                <span id="maxTemp" class="value"></span>
+                            </div>
+                            <div class="temp-item">
+                                <span class="label">Low</span>
+                                <span id="minTemp" class="value"></span>
+                            </div>
+                            <div class="temp-item">
+                                <span class="label">Feels Like</span>
+                                <span id="feelsLike" class="value"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Weather Details Grid -->
+                    <div class="weather-details-grid">
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-droplets"></i>
+                            </div>
+                            <div class="detail-content">
+                                <p class="detail-label">Humidity</p>
+                                <p id="humidity" class="detail-value">--</p>
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-wind"></i>
+                            </div>
+                            <div class="detail-content">
+                                <p class="detail-label">Wind Speed</p>
+                                <p id="windSpeed" class="detail-value">--</p>
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-gauge"></i>
+                            </div>
+                            <div class="detail-content">
+                                <p class="detail-label">Pressure</p>
+                                <p id="pressure" class="detail-value">--</p>
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="detail-content">
+                                <p class="detail-label">Visibility</p>
+                                <p id="visibility" class="detail-value">--</p>
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-cloud"></i>
+                            </div>
+                            <div class="detail-content">
+                                <p class="detail-label">Cloudiness</p>
+                                <p id="clouds" class="detail-value">--</p>
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-sun"></i>
+                            </div>
+                            <div class="detail-content">
+                                <p class="detail-label">UV Index</p>
+                                <p id="uvIndex" class="detail-value">--</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5-Day Forecast Section -->
+            <div id="forecastContainer" class="forecast-section hidden">
+                <h3 class="section-title">
+                    <i class="fas fa-calendar-days"></i>
+                    5-Day Forecast
+                </h3>
+                <div id="forecastGrid" class="forecast-grid"></div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>WeatherHub © 2025 | Powered by OpenWeatherMap API</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
